@@ -4,40 +4,45 @@ const result = document.querySelector('#result')
 const total = document.querySelector('#total')
 let i = 0
 
-// add event
-
 btn.addEventListener('click', (e) => {
-    // console.log(input.value);
-    // result.innerHTML += `<li>${input.value}</li>`
-    if (input.value === '') return
+    if(input.value === '') return
     createDeleteElements(input.value)
     input.value = ''
 })
 
- // create and delete todo
 function createDeleteElements(value) {
     i++
-    const btn = document.createElement('button')
+
+    const btnStrike = document.createElement('button')
+    const btnDell = document.createElement('button')
     const li = document.createElement('li')
 
     li.className = 'li'
     li.textContent = value
 
-    btn.className = 'btn'
-    btn.textContent = 'удалить'
-    li.appendChild(btn)
+    btnStrike.className = 'btn'
+    btnStrike.textContent = 'Сделано'
+    li.appendChild(btnStrike)
+    
+    btnDell.className = 'btn btnDell'
+    btnDell.textContent = 'Удалить'
+    li.appendChild(btnDell)
 
-    // remove todo
-    btn.addEventListener('click', (e) => {
-        i--
-        total.textContent = i
-        result.removeChild(li)
-    })
+    
     // toggle class active
-    li.addEventListener('click', (e) => {
+    btnStrike.addEventListener('click', (e) => {
         li.classList.toggle('li-active')
     })
 
+    // remove todo
+    btnDell.addEventListener('click', (e) => {
+        i--
+        total.textContent = i
+        result.removeChild(li)
+
+    })
+
     total.textContent = i
+
     result.appendChild(li)
 }
